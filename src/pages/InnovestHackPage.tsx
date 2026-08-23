@@ -4,8 +4,7 @@ import Hero from "../components/InnovestHack/Hero";
 import About from "../components/InnovestHack/About";
 import Domains from "../components/InnovestHack/Domains";
 import Journey from "../components/InnovestHack/Journey";
-// Schedule is commented out since it's not properly exported
-// import Schedule from '../components/InnovestHack/Schedule';
+
 import Partners from "../components/InnovestHack/Partners";
 import Judging from "../components/InnovestHack/Judging";
 import Prizes from "../components/InnovestHack/Prizes";

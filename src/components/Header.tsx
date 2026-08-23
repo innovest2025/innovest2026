@@ -5,8 +5,6 @@ import citLogo from '../img/CIT Logo Yellow-Autonomous(1).png';
 import citbifLogo from '../img/CITBIF logo Final-02 (1).png';
 import innovest from '../img/innovest.png';
 import citil from '../img/CITIL.jpeg';
-import Gallery_Header from './GalleryHeader';
-import Events_Gallery2025 from './EventsGallery2025';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,10 +22,13 @@ const Header = () => {
     const handleHashChange = () => {
       const hash = window.location.hash;
       if (hash) {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        // Small delay ensures DOM is ready before scrolling
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
       }
     };
 
@@ -72,84 +73,43 @@ const Header = () => {
     }
   };
 
+  // ✅ Updated to point to root path so it navigates to Home first
   const eventDays = [
-    { 
-      name: 'Day 1', 
-      date: 'September 1, 2026',
-      theme: 'IgniteX',
-      href: '#day1'
-    },
-    { 
-      name: 'Day 2', 
-      date: 'September 2, 2026',
-      theme: 'Deep Sprint 2026',
-      href: '#day2'
-    },
-    { 
-      name: 'Day 3', 
-      date: 'September 3, 2026',
-      theme: 'Demo Day',
-      href: '#day3'
-    }
+    { name: 'Day 1', date: 'September 1, 2026', theme: 'Igniting The Ecosystem', href: '/#day1' },
+    { name: 'Day 2', date: 'September 2, 2026', theme: 'Deep Sprint 2026', href: '/#day2' },
+    { name: 'Day 3', date: 'September 3, 2026', theme: 'Innovation & Investment Summit', href: '/#day3' }
   ];
 
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Events', href: '/#schedule', hasDropdown: true },
-    
+  ];
+
+  const actionLinks = [
+    { name: 'DeepSprint 2026', to: '/innovesthack' },
+    { name: 'Gallery of 2025', to: '/gallery/2025' },
+    { name: 'Gallery of 2024', to: '/gallery_header' },
   ];
 
   return (
     <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/20 backdrop-blur-xl shadow-lg border-b border-white/20' 
-        : 'bg-white shadow-lg'
+      isScrolled ? 'bg-white/20 backdrop-blur-xl shadow-lg border-b border-white/20' : 'bg-white shadow-lg'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
           <div className="flex items-center space-x-6">
-            <div className="h-12 w-auto flex items-center">
-              <a 
-                href="https://www.citchennai.edu.in/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="h-16 flex items-center"
-              >
-                <img 
-                  src={citLogo} 
-                  alt="CIT Logo" 
-                  className="h-14 w-auto object-contain"
-                />
-              </a>
-            </div>
+            <a href="https://www.citchennai.edu.in/" target="_blank" rel="noopener noreferrer" className="h-16 flex items-center">
+              <img src={citLogo} alt="CIT Logo" className="h-14 w-auto object-contain" />
+            </a>
             <div className="h-16 w-auto flex items-center">
-              <img 
-                src={citbifLogo} 
-                alt="CITBIF Logo" 
-                className="h-16 w-auto object-contain"
-              />
+              <img src={citbifLogo} alt="CITBIF Logo" className="h-16 w-auto object-contain" />
             </div>
-            <div className="h-18 w-auto flex items-center">
-              <a 
-                href="http://www.citinnovationlabs.in/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="h-11 flex items-center"
-              >
-                <img 
-                  src={citil} 
-                  alt="CIT Innovation Labs Logo" 
-                  className="h-full w-auto object-contain"
-                />
-              </a>
-            </div>
+            <a href="http://www.citinnovationlabs.in/" target="_blank" rel="noopener noreferrer" className="h-11 flex items-center">
+              <img src={citil} alt="CIT Innovation Labs Logo" className="h-full w-auto object-contain" />
+            </a>
             <div className="h-16 w-auto flex items-center">
-              <img 
-                src={innovest} 
-                alt="Innovest Logo" 
-                className="h-14 w-61 object-contain"
-              />
+              <img src={innovest} alt="Innovest Logo" className="h-14 w-61 object-contain" />
             </div>
           </div>
 
@@ -166,27 +126,18 @@ const Header = () => {
                       onMouseEnter={() => setActiveDropdown(item.name === 'Events' ? 'events' : null)}
                     >
                       {item.name}
-                      {item.hasDropdown && (
-                        <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
-                      )}
+                      {item.hasDropdown && <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />}
                     </Link>
                     
                     {item.name === 'Events' && (
-                      <div 
-                        className={`absolute left-0 mt-1 w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50 transition-all duration-200 origin-top ${
-                          activeDropdown === 'events' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
-                        }`}
-                        onMouseLeave={() => setActiveDropdown(null)}
-                      >
+                      <div className={`absolute left-0 mt-1 w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50 transition-all duration-200 origin-top ${activeDropdown === 'events' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`} onMouseLeave={() => setActiveDropdown(null)}>
+                        {/* ✅ FIXED: Added handleNavClick here to ensure scrolling works for Day 2 & 3 */}
                         {eventDays.map((day, index) => (
-                          <Link
-                            key={index}
-                            to={day.href}
+                          <Link 
+                            key={index} 
+                            to={day.href} 
+                            onClick={(e) => { handleNavClick(e, day.href); setIsMenuOpen(false); setActiveDropdown(null); }} 
                             className="block px-4 py-3 hover:bg-blue-50 transition-colors duration-150"
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              setActiveDropdown(null);
-                            }}
                           >
                             <div className="font-medium text-gray-900">{day.name}</div>
                             <div className="text-sm text-gray-500">{day.date}</div>
@@ -199,37 +150,16 @@ const Header = () => {
                 </div>
               ))}
             </nav>
-             {/* DeepSprint Button */}
-            <Link
-              to="/innovesthack"
-              className="ml-2 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-5 py-2.5 rounded-md text-sm font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap"
-            >
-              DeepSprint 2026
-            </Link>
-
-            {/* DeepSprint Button */}
-            <Link
-              to="/gallery/2025"
-              className="ml-2 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-5 py-2.5 rounded-md text-sm font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap"
-            >
-               Gallery of 2025
-            </Link>
-
-            {/* DeepSprint Button */}
-             <Link
-              to="/gallery_header"
-              className="ml-2 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-5 py-2.5 rounded-md text-sm font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap"
-            >
-              Gallery of 2024
-            </Link> 
+            {actionLinks.map((link) => (
+              <Link key={link.name} to={link.to} className="ml-2 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-5 py-2.5 rounded-md text-sm font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap">
+                {link.name}
+              </Link>
+            ))}
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-blue-900"
-            >
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-700 hover:text-blue-900">
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
@@ -243,22 +173,14 @@ const Header = () => {
                 <div key={item.name}>
                   {item.hasDropdown ? (
                     <div>
-                      <div className="px-3 py-2.5 text-sm text-gray-700 font-medium rounded-md hover:bg-gray-50">
-                        {item.name}
-                      </div>
+                      <div className="px-3 py-2.5 text-sm text-gray-700 font-medium rounded-md hover:bg-gray-50">{item.name}</div>
                       <div className="ml-3 mt-1 space-y-1 border-l border-gray-200 pl-3">
+                        {/* ✅ FIXED: Added handleNavClick here for Mobile Dropdown too */}
                         {eventDays.map((day, index) => (
-                          <Link
-                            key={index}
-                            to={day.href}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              const element = document.getElementById(day.href.replace('#', ''));
-                              if (element) {
-                                element.scrollIntoView({ behavior: 'smooth' });
-                                setIsMenuOpen(false);
-                              }
-                            }}
+                          <Link 
+                            key={index} 
+                            to={day.href} 
+                            onClick={(e) => { handleNavClick(e, day.href); setIsMenuOpen(false); }} 
                             className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors duration-150"
                           >
                             <div className="font-medium">{day.name}</div>
@@ -269,47 +191,18 @@ const Header = () => {
                       </div>
                     </div>
                   ) : (
-                    <Link
-                      to={item.href}
-                      onClick={(e) => {
-                        handleNavClick(e, item.href);
-                        setIsMenuOpen(false);
-                      }}
-                      className="block px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors duration-150"
-                    >
+                    <Link to={item.href} onClick={(e) => { handleNavClick(e, item.href); setIsMenuOpen(false); }} className="block px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors duration-150">
                       {item.name}
                     </Link>
                   )}
                 </div>
               ))}
-              <div className="pt-2 mt-2 border-t border-gray-200">
-                <Link
-                  to="/innovesthack"
-                  className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2.5 rounded-md text-sm font-medium shadow-sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  DeepSprint 2026 
-                </Link>
-              </div>
-
-              <div className="pt-2 mt-2 border-t border-gray-200">
-                <Link
-                  to="/gallery/2025"
-                  className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2.5 rounded-md text-sm font-medium shadow-sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Gallery of 2025 
-                </Link>
-              </div>
-
-              <div className="pt-2 mt-2 border-t border-gray-200">
-                <Link
-                  to="/#gallery_header"
-                  className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2.5 rounded-md text-sm font-medium shadow-sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Gallery of 2024
-                </Link>
+              <div className="pt-2 mt-2 border-t border-gray-200 space-y-2">
+                {actionLinks.map((link) => (
+                  <Link key={link.name} to={link.to} className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2.5 rounded-md text-sm font-medium shadow-sm" onClick={() => setIsMenuOpen(false)}>
+                    {link.name}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

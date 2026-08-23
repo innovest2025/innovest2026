@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-
+#
 export default defineConfig({
   base: "/",
   plugins: [react()],
@@ -15,9 +15,21 @@ export default defineConfig({
     strictPort: true,
     host: true,
     open: true,
+
+    allowedHosts: [
+      "innovest-of83.onrender.com",
+    ],
+
     watch: {
       usePolling: true,
       interval: 100,
     },
+  },
+
+  preview: {
+    host: true,
+    allowedHosts: [
+      "innovest-of83.onrender.com",
+    ],
   },
 });

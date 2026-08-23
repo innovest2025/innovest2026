@@ -86,9 +86,10 @@ const Contact = () => {
             <div className="flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-6 p-6 bg-white rounded-lg shadow-md w-full max-w-4xl">
               {/* Map on Left */}
               <div className="w-full sm:w-1/2">
+                {/* ✅ FIXED: Updated the src URL with valid address coordinates */}
                 <iframe
                   title="Google Map Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.0146562515687!2d80.0410!3d12.9708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzE1LjEiTiA4MMKwMDInMzUuMyJF!5e0!3m2!1sen!2sin!4v1690800000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.037313457528!2d80.0428332!3d12.9669236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525f161335b75b%3A0xa726f38c926e8b2d!2sSarathy%20Nagar%2C%20Kundrathur%2C%20Chennai%2C%20Tamil%20Nadu%20600069!5e0!3m2!1sen!2sin!4v1720000000000!5m2!1sen!2sin"
                   width="100%"
                   height="200"
                   style={{ border: 0 }}
